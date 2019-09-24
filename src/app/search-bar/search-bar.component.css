@@ -1,0 +1,16 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 500px;
+  align-content: center;
+  align-items: center;
+}
+
+.example-full-width {
+  width: 500px;
+  font-size: 25px;
+}
+
+.input-height {
+  height: 50px;
+}
