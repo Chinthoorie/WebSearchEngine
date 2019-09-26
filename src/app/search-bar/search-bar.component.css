@@ -1,16 +1,53 @@
 .example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 500px;
-  align-content: center;
-  align-items: center;
 }
 
 .example-full-width {
-  width: 500px;
+  width: 1000px;
   font-size: 25px;
 }
 
 .input-height {
   height: 50px;
+}
+
+.container {
+  display: flex; /* or inline-flex */
+  justify-content: center;
+  align-items: center;
+
+  /*padding-top: 100px;*/
+  /*padding-bottom: 50px;*/
+}
+
+.container-form {
+  justify-content:  center;
+}
+
+.list-item {
+  font-size: 12px;
+}
+.list-item-height {
+  height: 20px;
+}
+
+.btn {
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.search-icon{
+  padding-right: 16px;
+}
+
+.center {
+  display: block;
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
+  width: 200px;
+  padding-right: 16px;
+}
+
+
+.kwic-logo {
+  font-size: xx-large;
 }

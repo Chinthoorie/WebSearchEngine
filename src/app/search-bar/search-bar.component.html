@@ -1,25 +1,37 @@
+<!--<img class="center" src="assets/logo.png">-->
 
-<form class="example-form">
+<!--<h1 class="kwic-logo">KWIC</h1>-->
+<form class="example-form container">
 
-
-  <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
+<!--<div class="container-form">-->
+  <img class="center" src="assets/logo.png">
+  <!--<mat-icon class="search-icon" aria-hidden="false" aria-label="Example home icon">search</mat-icon>-->
   <mat-form-field class="example-full-width" appearance="outline">
     <input matInput class="input-height" placeholder="" [(ngModel)]="lines" [ngModelOptions]="{standalone: true}" value="">
   </mat-form-field>
 
-<button mat-button (click)="onClick()">Search
+<button mat-button class="btn" color="primary" (click)="onClick()">Search
 </button>
+<!--</div>-->
 </form>
 
-<!--<input type="text" name="username" [(ngModel)]="lines">-->
-<!--<button (click)="onClick()" type="button" name="button">search</button>-->
+<mat-list >
+  <h4 mat-subheader *ngIf="csArray && csArray.length > 0">Circular Shifted Lines</h4>
+  <mat-list-item style="height: 20px" *ngFor="let line of csArray">
+    <p mat-line class="list-item"> {{line}} </p>
+  </mat-list-item>
+  <p></p>
+  <mat-divider *ngIf="csArray && csArray.length > 0"></mat-divider>
+  <h4 mat-subheader *ngIf="noiseRemovedArray && noiseRemovedArray.length > 0">Noise Removed Lines</h4>
+  <mat-list-item style="height: 20px"  class="list-item-height" *ngFor="let line of noiseRemovedArray">
+    <p mat-line class="list-item"> {{line}} </p>
+  </mat-list-item>
+  <p></p>
+  <mat-divider *ngIf="noiseRemovedArray && noiseRemovedArray.length > 0"></mat-divider>
+  <h4 mat-subheader *ngIf="outputArray && outputArray.length > 0" >Alphabetized Lines</h4>
+  <mat-list-item style="height: 20px"  *ngFor="let line of outputArray">
+    <p mat-line class="list-item"> {{line}} </p>
+  </mat-list-item>
+</mat-list>
 
-<!--<form class="example-form">-->
 
-  <!--<mat-form-field class="example-full-width">-->
-    <!--<span matPrefix>+1 &nbsp;</span>-->
-    <!--<input type="tel" matInput placeholder="Telephone">-->
-    <!--<mat-icon matSuffix>mode_edit</mat-icon>-->
-  <!--</mat-form-field>-->
-
-<!--</form>-->
