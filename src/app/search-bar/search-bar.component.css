@@ -7,7 +7,7 @@
 }
 
 .input-height {
-  height: 50px;
+  /*height: 50px;*/
 }
 
 .container {
@@ -51,3 +51,21 @@
 .kwic-logo {
   font-size: xx-large;
 }
+
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}
+
