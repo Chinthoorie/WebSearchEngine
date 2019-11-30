@@ -18,12 +18,19 @@ export class SearchBarComponent implements OnInit {
   csArray: any[];
   noiseRemovedArray: any[] = [];
   outputArray: any[];
+  selectedValue: string = 'OR';
+
+  searchOpts: Option[] = [
+    {key: 'OR', value: 'OR'},
+    {key: 'AND', value: 'AND'},
+    {key: 'NOT', value: 'NOT'}
+  ];
 
   constructor(private kwicService: KwicService, private dataStore: DataStore) { }
 
   myControl = new FormControl();
   options: string[] = [];
-  results: string[] = [];
+  results: URL[] = [];
   filteredOptions: Observable<string[]>;
   wordsObsv: Subscription = new Subscription();
   resultsObsv: Subscription = new Subscription();
@@ -33,8 +40,8 @@ export class SearchBarComponent implements OnInit {
     this.wordObserver();
     this.resultsObserver();
     // this.options = [ 'software', 'food', 'ut', 'soft', 'softw'];
-    console.log(this.options);
     this.kwicService.getWord('');
+    console.log(this.options);
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -81,8 +88,13 @@ export class SearchBarComponent implements OnInit {
     this.line = this.line.trim();
     if (this.line !== null &&  this.line !== '' && this.line !== undefined) {
       this.resultsObserver();
-      this.kwicService.getSearchResults(this.line);
+      this.kwicService.getSearchResults(this.line, this.selectedValue);
     }
   }
 
+}
+
+export interface Option {
+  value: string;
+  key: string;
 }

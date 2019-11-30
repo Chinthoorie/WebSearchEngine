@@ -5,11 +5,11 @@ import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatAutocompleteModule,
-  MatButtonModule,
+  MatButtonModule, MatCardModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
-  MatListModule, MatOptionModule
+  MatListModule, MatOptionModule, MatSelectModule
 } from '@angular/material';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -41,7 +41,9 @@ import {AutocompleteModule} from './autocomplete/autocomplete.module';
     MatInputModule,
     HttpClientModule,
     MatListModule,
-    AutocompleteModule
+    AutocompleteModule,
+    MatSelectModule,
+    MatCardModule
   ],
   providers: [ KwicService, DataStore],
   bootstrap: [AppComponent]

@@ -40,12 +40,13 @@ export class KwicService {
     return this.dataStore.get(DataKey.autofillWords, true);
   }
 
-  public getSearchResults(line: string): Observable<string[]> {
+  public getSearchResults(line: string, keyword: string): Observable<URL[]> {
 
     let params = new HttpParams();
     params = params.append('line', line);
+    params = params.append('keyword', keyword);
 
-    this.http.get<string[]>(this.resultsUrl, {params}).subscribe( res => {
+    this.http.get<URL[]>(this.resultsUrl, {params}).subscribe( res => {
       this.dataStore.set(DataKey.urls, res);
     });
 
