@@ -48,7 +48,7 @@ export class SearchBarComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     let dummy = this.options ? this.options.filter(option => option.toLowerCase().includes(filterValue)) : [];
-    console.log(this.options);
+    console.log(dummy);
     return dummy;
   }
 
