@@ -3,29 +3,47 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule} from '@angular/material';
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule, MatOptionModule
+} from '@angular/material';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {KwicService} from './services/kwic-service/kwic.service';
 import { HttpClientModule} from '@angular/common/http';
+import {SearchResultsComponent} from './search-results/search-results.component';
+import {SearchResultComponent} from './search-result/search-result.component';
+import {DataStore} from './util/data-store.service';
+import {AutocompleteModule} from './autocomplete/autocomplete.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    SearchResultsComponent,
+    SearchResultComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
-    MatListModule
+    MatListModule,
+    AutocompleteModule
   ],
-  providers: [ KwicService],
+  providers: [ KwicService, DataStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {KwicService} from '../services/kwic-service/kwic.service';
+import {FormControl} from '@angular/forms';
+import {Observable, Subscription} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {DataKey, DataStore} from '../util/data-store.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -9,30 +13,84 @@ import {KwicService} from '../services/kwic-service/kwic.service';
 export class SearchBarComponent implements OnInit {
 
   lines;
+  line = '';
   orderedLines = [];
   csArray: any[];
   noiseRemovedArray: any[] = [];
   outputArray: any[];
 
-  constructor(private kwicService: KwicService) { }
+  constructor(private kwicService: KwicService, private dataStore: DataStore) { }
+
+  myControl = new FormControl();
+  options: string[] = [ 'software', 'food', 'ut', 'soft', 'softw'];
+  results: string[] = [];
+  filteredOptions: Observable<string[]>;
+  wordsObsv: Subscription = new Subscription();
+  resultsObsv: Subscription = new Subscription();
 
   ngOnInit() {
+
+    this.wordObserver();
+    this.resultsObserver();
+    this.options = [ 'software', 'food', 'ut', 'soft', 'softw'];
+    console.log(this.options);
+    // this.kwicService.getWord('');
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+  }
+
+  displayFn(word?: string): string | undefined {
+    return word ? word : '';
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    // this.dataStore.set(DataKey.autofillWords, null, true);
+    // this.wordsObsv = this.dataStore.get(DataKey.autofillWords).subscribe( data => {
+    //   this.options = data;
+    //   // console.log(this.options);
+    //   this.wordsObsv.unsubscribe();
+    //   return this.options;
+    // });
+    // this.kwicService.getWord(value);
+    // let dummy = this.options ?  this.options : [];
+    let dummy = this.options ? this.options.filter(option => option.toLowerCase().includes(filterValue)) : [];
+    console.log(this.options);
+    return this.options;
+  }
+
+  private wordObserver() {
+    this.dataStore.set(DataKey.autofillWords, null, true);
+    this.wordsObsv = this.dataStore.get(DataKey.autofillWords).subscribe( data => {
+      this.options = data;
+      // console.log(this.options);
+      this.wordsObsv.unsubscribe();
+    });
+
+  }
+
+  private resultsObserver() {
+    this.dataStore.set(DataKey.urls, null, true);
+    this.resultsObsv = this.dataStore.get(DataKey.urls).subscribe( data => {
+      this.results = data;
+      console.log('this.results', this.results);
+      this.resultsObsv.unsubscribe();
+    });
+
   }
 
   onClick() {
-    this.orderedLines = [];
-    this.csArray = [];
-    this.noiseRemovedArray = [];
-    this.outputArray = [];
-    this.lines = this.lines.trim();
-    if (this.lines !== null &&  this.lines !== '' && this.lines !== undefined) {
-      const arr = [this.lines];
-      this.kwicService.indexInput(arr).subscribe(data =>  {
-        // this.orderedLines = data;
-        this.csArray =  data[0];
-        this.noiseRemovedArray = data[1];
-        this.outputArray = data[2];
-      });
+    // this.orderedLines = [];
+    // this.csArray = [];
+    // this.noiseRemovedArray = [];
+    // this.outputArray = [];
+    this.line = this.myControl.value;
+    this.line = this.line.trim();
+    if (this.line !== null &&  this.line !== '' && this.line !== undefined) {
+      this.resultsObserver();
+      this.kwicService.getSearchResults(this.line);
     }
   }
 
